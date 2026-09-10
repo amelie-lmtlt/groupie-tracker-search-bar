@@ -1,0 +1,432 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: #fff8fc;
+    color: #59465c;
+
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+}
+.content-page {
+    min-height: 100vh;
+    padding: 24px 26px 35px;
+
+    background:
+        radial-gradient(circle at top left, #f8e5f1 0, transparent 25%),
+        radial-gradient(circle at bottom right, #eee4f6 0, transparent 30%),
+        #fff8fc;
+}
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+    color: #6d5575;
+}
+
+.small-title {
+    position: relative;
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.small-title::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 16px;
+    height: 16px;
+
+    margin-right: 7px;
+
+    background-image: url("/img/musicnote.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    vertical-align: middle;
+}
+
+.artist-count {
+    color: #9a829e;
+
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.separator {
+    height: 1px;
+
+    margin: 18px 0 22px;
+
+    border-top: 1px dashed #cdb9ca;
+
+    position: relative;
+}
+
+.separator::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    top: -8px;
+
+    width: 18px;
+    height: 18px;
+
+    transform: translateX(-50%);
+
+    background-color: #fff8fc;
+    background-image: url("/img/bowtie.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pagination-settings {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 6px;
+
+    margin: 0 0 0px;
+
+    color: #6d5575;
+
+    font-size: 12px;
+}
+
+.pagination-label {
+    margin-right: 6px;
+
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+.pagination-button {
+    display: inline-block;
+}
+
+.pagination-button a,
+.pagination-current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 32px;
+    height: 27px;
+
+    padding: 0 9px;
+
+    background: #ffffff;
+
+    border: 1px solid #cdb8ca;
+
+    color: #6b526e;
+
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    box-shadow: 2px 2px 0 #e4d6e1;
+
+    transition:
+        background 0.12s ease,
+        transform 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+.pagination-button a:hover {
+    background: #f7e7f1;
+
+    border-color: #b88cab;
+
+    color: #805d79;
+
+    transform: translateY(-1px);
+
+    box-shadow: 2px 3px 0 #dec9d9;
+}
+
+.pagination-current {
+    background: #c99abd;
+
+    border-color: #ae7fa5;
+
+    color: #ffffff;
+
+    box-shadow:
+        inset 1px 1px 2px rgba(90, 55, 85, 0.2);
+
+    cursor: default;
+}
+#artist-section {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 8px;
+}
+.artist-card {
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #d0c2ce;
+
+    box-shadow:
+        3px 3px 0 #e3d8e1;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.artist-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #bd9bb6;
+
+    box-shadow:
+        5px 6px 0 #dfcedb;
+}
+.artist-link {
+    display: block;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+.artist-image {
+    padding: 6px;
+
+    background: #faf6f9;
+}
+
+.artist-image img {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    border: 1px solid #e0d5dd;
+}
+.artist-info {
+    position: relative;
+
+    padding: 7px 9px 9px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e2d7df;
+}
+
+.artist-number {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #b092ae;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.artist-info h2 {
+    margin: 0;
+
+    overflow: hidden;
+
+    color: #59465c;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.artist-card:hover .artist-info::after {
+    content: "";
+
+    position: absolute;
+
+    right: 8px;
+    bottom: 7px;
+
+    width: 16px;
+    height: 16px;
+
+    background-image: url("/img/cat.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.page-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin: 24px 0 8px;
+}
+
+.page-navigation::before {
+    content: "PAGE";
+
+    margin-right: 7px;
+
+    color: #a188a3;
+
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.page-button {
+    display: inline-block;
+}
+
+.page-button a,
+.page-current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 29px;
+    height: 27px;
+
+    padding: 0 7px;
+
+    background: #ffffff;
+
+    border: 1px solid #cdb8ca;
+
+    color: #6b526e;
+
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    box-shadow: 2px 2px 0 #e4d6e1;
+
+    transition:
+        background 0.12s ease,
+        transform 0.12s ease;
+}
+
+.page-button a:hover {
+    background: #f7e7f1;
+
+    border-color: #b88cab;
+
+    color: #805d79;
+
+    transform: translateY(-1px);
+}
+
+.page-current {
+    background: #c99abd;
+
+    border-color: #ae7fa5;
+
+    color: #ffffff;
+
+    box-shadow:
+        inset 1px 1px 2px rgba(90, 55, 85, 0.2);
+}
+.no-result {
+    display: none;
+
+    margin: 35px 0;
+
+    text-align: center;
+
+    color: #a9829f;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.no-result::before {
+    content: "♡ ";
+
+    color: #c18eb7;
+}
+noscript {
+    display: block;
+
+    margin: 20px 0;
+    padding: 12px;
+
+    background: #fff0f7;
+
+    border: 1px solid #dfbfd2;
+
+    color: #805d79;
+
+    font-size: 11px;
+    text-align: center;
+}
+@media (max-width: 900px) {
+
+    #artist-section {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+
+    .content-page {
+        padding: 18px;
+    }
+
+    #artist-section {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pagination-settings {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 420px) {
+
+    #artist-section {
+        grid-template-columns: 1fr;
+    }
+
+    .search-container {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #artist-search {
+        width: 100%;
+    }
+}

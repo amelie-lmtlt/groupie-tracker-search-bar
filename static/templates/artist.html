@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<meta charset="UTF-8">
+<title>{{ .Name }}</title>
+<link rel="stylesheet" href="/style/artist.css">
+    </head>
+    <body>
+        <div class="artist-page">
+            <a href="/" target="_top">_ Back</a>
+            <h1>{{ .Name }}</h1>
+            <img src="{{ .Image }}" alt="{{ .Name }}">
+            <p><strong>Creation Date :</strong> {{ .CreationDate }}</p>
+            <p><strong>First Album :</strong> {{ .FirstAlbum }}</p>
+            <h2>Members</h2>
+            {{ if .Members }}
+            <ul class="band-members">
+                {{ range .Members }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+            {{ else }}
+            <div class="band-members"><p>No members known</p></div>
+            {{ end }}
+            <div><h2>Concerts</h2>
+            {{ range $key, $value := .ConcertDetails }}
+                <h3 class="location">{{$key}}</h3>
+                <ul>
+                {{ range $value }}
+                    <li class="date">{{ . }}</li>
+                {{end}}
+                </ul>
+            {{ end }}
+            </div>
+            <a href="/" target="_top">_ Back</a>
+        </div>
+
+    </body>
+</html>

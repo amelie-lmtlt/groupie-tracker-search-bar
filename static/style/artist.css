@@ -1,0 +1,175 @@
+* {
+    box-sizing:border-box
+}
+html{
+    min-height: 100%;
+    background: #fff4fa;
+}
+body{
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #f8e5f1 0, transparent 25%), radial-gradient(circle at bottom right, #eee4f6 0, transparent30%), #fff8fc;
+    color: #59465c;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+}
+.artist-page{
+    position: relative;
+    width: min(850px, calc(100% - 40px));
+    margin: 35px auto;
+    padding: 30px 35px 40px;
+    background: #fffafd;
+    border: 2px solid #c8b5c3;
+    box-shadow: 6px 6px 0 rgba(180, 140, 170, 0.2);
+}
+.artist-page > a{
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 7px 13px;
+    background: #ffffff;
+    border: 1px solid #cdb8ca;
+    color: #6b526e;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 #e4d6e1;
+    transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+.artist-page > a:hover{
+    background: #f7e7f1;
+    border-color: #b88cab;
+    color: #805d79;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 #dec9d9;
+}
+.artist-page > a:active{
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #dec9d9;
+}
+.artist-page h1{
+    margin: 0 0 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #cdb9ca;
+    color: #59465c;
+    font-size: 26px;
+    letter-spacing: 2px;
+}
+.artist-page h1::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 22px;
+    height: 22px;
+
+    margin-right: 8px;
+
+    background-image: url("/img/sparkle.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    vertical-align: middle;
+}
+.artist-page > img{
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto 28px;
+    padding: 7px;
+    background: #faf6f9;
+    border: 1px solid #d0c2ce;
+    box-shadow: 4px 4px 0 #e3d8e1;
+}
+.artist-page > p{
+    margin: 9px 0;
+    color: #59465c;
+    line-height: 1.5;
+}
+.artist-page > p strong{
+    color: #805d79;
+}
+.artist-page h2{
+    margin: 30px 0 15px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #dfd0dc;
+    color: #6d5575;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.artist-page h2::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 18px;
+    height: 18px;
+
+    margin-right: 7px;
+
+    background-image: url("/img/heart.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    vertical-align: middle;
+}
+.band-members{
+    margin: 0;
+    padding: 12px 20px 12px 35px;
+    background: #ffffff;
+    border: 1px solid #ddd0da;
+    box-shadow: 3px 3px 0 #ebe1a8;
+}
+.band-members li{
+    margin: 7px 0;
+    color: #59465c;
+}
+.band-members li::marker{
+    color: #b987ad;
+}
+.artist-page h3.location{
+    margin: 20px 0 8px;
+    color: #805d79;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.artist-page h3.location::before{
+    content: "♡ ";
+    color: #c18eb7;
+}
+.artist-page h3.location + ul{
+    margin: 0 0 15px;
+    padding: 10px 15px 10px 30px;
+    background: #ffffff;
+    border-left: 2px solid #d6b8ce;
+}
+.artist-page li.date{
+    margin: 5px 0;
+    color: #6d5575;
+}
+.artist-page > a:last-child{
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+
+    .artist-page {
+        width: calc(100% - 24px);
+
+        margin: 15px auto;
+        padding: 22px 20px 30px;
+    }
+
+    .artist-page h1 {
+        font-size: 21px;
+    }
+
+    .artist-page > img {
+        width: 240px;
+    }
+}

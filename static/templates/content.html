@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Artists</title>
+
+    <link rel="stylesheet" href="../style/iframe.css">
+    <script src="/js/api.js"></script>
+
+</head>
+
+<body class="content-page">
+
+    <header class="content-header">
+        <div>
+            <span class="small-title">Explore the world of music</span>
+        </div>
+
+        <span class="artist-count">LOADING...</span>
+    </header>
+
+    <div class="separator"></div>
+
+    <main class="result">
+        <noscript>
+            In order to see artists, you need to enable JavaScript.
+        </noscript>
+    </main>
+
+    <p class="no-result">NO ARTIST FOUND.</p>
+
+    <script>
+
+        function findGetParameter(parameterName) {
+            var result = undefined,
+                tmp = [];
+
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+
+                    if (tmp[0] === parameterName) {
+                        result = decodeURIComponent(tmp[1]);
+                    }
+                });
+
+            return result;
+        }
+
+        function sanitizePage(pageNumber, page) {
+            if (typeof(page) !== "number") {
+                return 1;
+            }
+
+            return page > 0 && page <= pageNumber ? page : 1;
+        }
+
+        function sanitizePagination(pagination) {
+            if (typeof(pagination) !== "number") {
+                return 1;
+            }
+
+            return pagination > -1 && pagination < 3 ? pagination : 1;
+        }
+
+        getArtistData(function(responseStatus, response) {
+
+            var artists = JSON.parse(response);
+
+            var result = document.getElementsByClassName("result")[0];
+            var artistCount = document.getElementsByClassName("artist-count")[0];
+            var noResult = document.getElementsByClassName("no-result")[0];
+
+            artistCount.textContent =
+                artists.ArtistsData.length + " ARTISTS";
+
+
+            function displayArtists(artists) {
+
+                var artistsToDisplay = artists.ArtistsData;
+
+                result.innerHTML = "";
+
+                noResult.style.display = "none";
+
+
+                // Artists per page
+
+                var section = "<div>Artists per page: ";
+
+                var pages = artists.PagesNumber;
+
+                var pagination =
+                    Number(findGetParameter("n") ?? "1");
+
+                pagination = sanitizePagination(pagination);
+
+                var page =
+                    Number(findGetParameter("page"));
+
+                page = sanitizePage(pages, page);
+
+                var arrayPagination = ["5", "10", "25"];
+
+
+                for (let i = 0; i < arrayPagination.length; i++) {
+
+                    section +=
+                        "<span class=\"pagination-button\">";
+
+                    if (i === pagination) {
+                        section += "<span class=\"pagination-current\">" + arrayPagination[i] + "</span>";
+                    } else {
+
+                        section +=
+                            "<a href=\"?n=" +
+                            i.toString() +
+                            "&page=" +
+                            page +
+                            "\">" +
+                            arrayPagination[i] +
+                            "</a>";
+                    }
+
+                    section += "</span>";
+                }
+
+                section += "</div>";
+
+
+                // Artists
+
+                section +=
+                    "<section id=\"artist-section\">";
+
+                for (var i = 0;
+                    i < artistsToDisplay.length;
+                    ++i) {
+
+                    let artist = artistsToDisplay[i];
+
+                    let newArticle =
+                        "<article class=\"artist-card\">" +
+
+                        "<a href=\"/artist/" +
+                        artist.id +
+                        "\" class=\"artist-link\">" +
+
+                        "<div class=\"artist-image\">" +
+
+                        "<img src=\"" +
+                        artist.image +
+                        "\" alt=\"an image of " +
+                        artist.name +
+                        "\">" +
+
+                        "</div>" +
+
+                        "<div class=\"artist-info\">" +
+
+                        "<span class=\"artist-number\">" +
+                        "#" +
+                        String(i + 1).padStart(2, "0") +
+                        "</span>" +
+
+                        "<h2>" +
+                        artist.name +
+                        "</h2>" +
+
+                        "</div>" +
+
+                        "</a>" +
+
+                        "</article>";
+
+                    section += newArticle;
+                }
+
+                section += "</section>";
+
+
+                // Page buttons
+
+                section += "<div class=\"page-navigation\">";
+
+                for (let i = 1; i <= pages; i++) {
+
+                    section +=
+                        "<span class=\"page-button\">";
+                        
+                    if (i === page) {
+                        section += "<span class=\"page-current\">" + i.toString() + "</span>";
+                    
+                    } else {
+                        section +=
+                            "<a href=\"?page=" +
+                            i.toString() +
+                            "&n=" +
+                            pagination +
+                            "\">" +
+                            i.toString() +
+                            "</a>";
+                    }
+
+                    section += "</span>";
+                }
+
+                section += "</div>";
+
+
+                if (artistsToDisplay.length === 0) {
+                    noResult.style.display = "block";
+                }
+
+                return section;
+            }
+
+            result.innerHTML = displayArtists(artists);
+
+        }, findGetParameter("n"), findGetParameter("page"));
+
+    </script>
+
+</body>
+
+</html>
