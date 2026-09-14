@@ -67,14 +67,33 @@ func ArtistEndpoint(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, ISE_MESSAGE, http.StatusInternalServerError)
 		return
 	}
+	search := strings.ToLower(r.URL.Query().Get("search"))
+
+	if search != "" {
+		var filteredArtists []gt.Artists
+		for _, artist := range artistsArray {
+			if strings.Contains(strings.ToLower(artist.Name), search) {
+				filteredArtists = append(filteredArtists, artist)
+			}
+		}
+		artistsArray = filteredArtists
+	}
 
 	// Total number of artists
 	artistsNumber := len(artistsArray)
 
 	// Total number of pages
+
 	pageNumber := artistsNumber / pagination
+
 	if artistsNumber%pagination != 0 {
 		pageNumber++
+	}
+
+	// Avoid page 0 when there are no results
+
+	if pageNumber == 0 {
+		pageNumber = 1
 	}
 
 	// Get requested page
@@ -118,7 +137,8 @@ func ArtistEndpoint(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
 }
-func ArtistSearch(w http.ResponseWriter, r *http.Request) {
+
+/*func ArtistSearch(w http.ResponseWriter, r *http.Request) {
 	artists, err := gt.GetArtistsData()
 	if err != nil {
 		http.Error(w, SERVICE_MESSAGE+": "+err.Error(), http.StatusServiceUnavailable)
@@ -147,7 +167,7 @@ func ArtistSearch(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Content-Length", strconv.Itoa(len(artistsObj)))
 	w.Write(artistsObj)
-}
+}*/
 
 func HandlerArtistPage(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))

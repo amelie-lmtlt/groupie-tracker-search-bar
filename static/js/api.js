@@ -1,19 +1,34 @@
 "use strict";
 
-function getArtistData(callback, pagination, page) {
+function getArtistData(callback, pagination, page, search) {
 
     var request = new XMLHttpRequest();
 
     var parameters = "";
-    if (pagination !== undefined || page !== undefined) {
-        parameters += "?"
-        parameters += typeof(pagination) !== "string" ? "" : "n=" + pagination + "&";
-        parameters += typeof(page) !== "string" ? "" : "page=" + page;
+    var queryParameters = [];
+
+    if (typeof(pagination) === "string") {
+        queryParameters.push("n=" + pagination);
     }
+
+    if (typeof(page) === "string") {
+        queryParameters.push("page=" + page);
+    }
+
+    if (typeof(search) === "string" && search !== "") {
+        queryParameters.push("search=" + encodeURIComponent(search));
+    }
+
+    if (queryParameters.length > 0) {
+        parameters = "?" + queryParameters.join("&");
+    }
+
     request.open("GET", "/artist/" + parameters, true);
 
     request.onreadystatechange = function () {
+
         if (request.readyState === 4) {
+
             if (request.status === 200) {
                 callback(request.status, request.responseText);
             } else {
@@ -21,6 +36,7 @@ function getArtistData(callback, pagination, page) {
             }
         }
     };
+
     request.send();
 }
 

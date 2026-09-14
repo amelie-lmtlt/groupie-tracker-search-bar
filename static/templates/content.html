@@ -20,8 +20,8 @@
 
         <span class="artist-count">LOADING...</span>
     </header>
-    <form action="/search" method="GET">
-        <input type="text" name="name" placeholder="Who are you looking for ?">
+    <form action="/content.html" method="GET">
+        <input type="text" name="search" placeholder="Who are you looking for ?">
         <button type="submit">Search</button>
     </form>
 
@@ -38,22 +38,9 @@
     <script>
 
         function findGetParameter(parameterName) {
-            var result = undefined,
-                tmp = [];
-
-            location.search
-                .substr(1)
-                .split("&")
-                .forEach(function (item) {
-                    tmp = item.split("=");
-
-                    if (tmp[0] === parameterName) {
-                        result = decodeURIComponent(tmp[1]);
-                    }
-                });
-
-            return result;
-        }
+    var parameters = new URLSearchParams(window.location.search);
+    return parameters.get(parameterName);
+}
 
         function sanitizePage(pageNumber, page) {
             if (typeof(page) !== "number") {
@@ -225,7 +212,7 @@
 
             result.innerHTML = displayArtists(artists);
 
-        }, findGetParameter("n"), findGetParameter("page"));
+        }, findGetParameter("n"), findGetParameter("page"), findGetParameter("search"));
 
     </script>
 

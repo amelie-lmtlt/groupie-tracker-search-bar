@@ -42,7 +42,7 @@ func main() {
 	// Endpoints
 	http.HandleFunc("/artist/", AllowMethod(ArtistEndpoint, []string{http.MethodGet}))
 	http.HandleFunc("/artist/{id}", AllowMethod(HandlerArtistPage, []string{http.MethodGet}))
-	http.HandleFunc("/artist/search/{query}", AllowMethod(ArtistSearch, []string{http.MethodGet}))
+	//http.HandleFunc("/artist/search/{query}", AllowMethod(ArtistSearch, []string{http.MethodGet}))
 
 	http.HandleFunc("/relation/{id}", AllowMethod(RelationEndpoint, []string{http.MethodGet}))
 	log.Fatal(http.ListenAndServe(":"+chosenPort, nil))
